@@ -17,3 +17,13 @@ class MeasureUnit(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Sensor(models.Model):
+    name = models.CharField(max_length=60)
+    code = models.CharField(max_length=10)
+    magnitude = models.ForeignKey(Magnitude, on_delete=models.RESTRICT)
+    measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.RESTRICT)
+
+    def __str__(self):
+        return self.name

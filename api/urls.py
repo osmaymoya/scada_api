@@ -7,6 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'magnitudes', views.MagnitudeViewSet)
 router.register(r'measure_units', views.MeasureUnitViewSet)
+router.register(r'sensors', views.SensorViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
