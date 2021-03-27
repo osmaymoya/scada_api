@@ -1,3 +1,4 @@
+import django
 from django.db import models
 
 # Create your models here.
@@ -27,3 +28,13 @@ class Sensor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ValueLog(models.Model):
+    value = models.FloatField()
+    time = models.DateTimeField(default=django.utils.timezone.now)
+    sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT)
+    measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.RESTRICT)
+
+    def __str__(self):
+        return f'{self.sensor}-{self.value} {self.measure_unit}'

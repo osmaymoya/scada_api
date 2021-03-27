@@ -10,6 +10,8 @@ from .serializers import MeasureUnitSerializer
 from .models import MeasureUnit
 from .serializers import SensorSerializer
 from .models import Sensor
+from .serializers import ValueLogSerializer
+from .models import ValueLog
 
 
 class MagnitudeViewSet(viewsets.ModelViewSet):
@@ -25,3 +27,8 @@ class MeasureUnitViewSet(viewsets.ModelViewSet):
 class SensorViewSet(viewsets.ModelViewSet):
     queryset = Sensor.objects.all().order_by('name')
     serializer_class = SensorSerializer
+
+
+class ValueLogViewSet(viewsets.ModelViewSet):
+    queryset = ValueLog.objects.all().order_by('time')
+    serializer_class = ValueLogSerializer

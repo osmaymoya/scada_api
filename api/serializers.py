@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models import Magnitude
 from .models import MeasureUnit
 from .models import Sensor
+from .models import ValueLog
 
 
 class MagnitudeSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,3 +23,9 @@ class SensorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sensor
         fields = ('id', 'name', 'code', 'magnitude', 'measure_unit')
+
+
+class ValueLogSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ValueLog
+        fields = ('id', 'value', 'time', 'sensor', 'measure_unit')
