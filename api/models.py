@@ -38,3 +38,7 @@ class ValueLog(models.Model):
 
     def __str__(self):
         return f'{self.sensor}-{self.value} {self.measure_unit}'
+
+    def save(self, *args, **kwargs):
+        self.measure_unit = self.sensor.measure_unit
+        super(ValueLog, self).save(*args, **kwargs)
