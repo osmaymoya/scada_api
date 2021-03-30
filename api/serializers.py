@@ -26,6 +26,9 @@ class SensorSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ValueLogSerializer(serializers.HyperlinkedModelSerializer):
+    sensor = SensorSerializer(many=False)
+    measure_unit = MeasureUnitSerializer(many=False)
+
     class Meta:
         model = ValueLog
         fields = ('id', 'value', 'time', 'sensor', 'measure_unit')
