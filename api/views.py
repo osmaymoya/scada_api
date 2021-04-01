@@ -4,6 +4,9 @@ from django.shortcuts import render
 
 from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 from .serializers import MagnitudeSerializer
 from .models import Magnitude
@@ -13,6 +16,7 @@ from .serializers import SensorSerializer
 from .models import Sensor
 from .serializers import ValueLogSerializer
 from .models import ValueLog
+from .serializers import ValueLogPostSerializer
 
 
 class MagnitudeViewSet(viewsets.ModelViewSet):
@@ -45,3 +49,15 @@ class ValueLogViewSet(viewsets.ModelViewSet):
         if sensor is not None:
             queryset = queryset.filter(sensor__id=sensor)
         return queryset
+
+
+@api_view(['POST'])
+def event_value_log(request):
+
+    serializer = ValueLogPostSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data,
+                        status=status.HTTP_201_CREATED)
+    return Response(serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST)

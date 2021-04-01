@@ -7,28 +7,36 @@ from .models import Sensor
 from .models import ValueLog
 
 
-class MagnitudeSerializer(serializers.HyperlinkedModelSerializer):
+class MagnitudeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Magnitude
         fields = ('id', 'name')
 
 
-class MeasureUnitSerializer(serializers.HyperlinkedModelSerializer):
+class MeasureUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = MeasureUnit
         fields = ('id', 'name', 'symbol', 'magnitude')
 
 
-class SensorSerializer(serializers.HyperlinkedModelSerializer):
+class SensorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sensor
         fields = ('id', 'name', 'code', 'magnitude', 'measure_unit')
 
 
-class ValueLogSerializer(serializers.HyperlinkedModelSerializer):
+class ValueLogSerializer(serializers.ModelSerializer):
     sensor = SensorSerializer(many=False)
     measure_unit = MeasureUnitSerializer(many=False)
 
     class Meta:
         model = ValueLog
         fields = ('id', 'value', 'time', 'sensor', 'measure_unit')
+        extra_kwargs = {"measure_unit": {"required": False, "allow_null": True}}
+
+
+class ValueLogPostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ValueLog
+        fields = ('id', 'value', 'sensor')

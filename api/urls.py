@@ -14,5 +14,6 @@ router.register(r'value_logs', views.ValueLogViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/logs/', views.event_value_log, name="create"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
